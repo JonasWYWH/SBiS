@@ -11,10 +11,11 @@ export default function Home() {
       </Head>
 
       <main>
-        <Header title="Welcome to my app!" />
+        <Header title="SBiS" />
         <p className="description">
           Get started by editing <code>pages/index.js</code>
         </p>
+        <a href="/places/">Places</a>
       </main>
 
       <Footer />
