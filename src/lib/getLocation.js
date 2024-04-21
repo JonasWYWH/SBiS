@@ -7,11 +7,11 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
 );
 
 // Function to fetch a place by its URL
-export default function getPlace({ url }) {
+export default function getLocation({ location_url }) {
   return new Promise((resolve, reject) => {
     // Use select to fetch records that match the URL
-    base("places").select({
-      filterByFormula: `url = '${url}'`
+    base("locations").select({
+      filterByFormula: `location_url = '${location_url}'`
     }).firstPage((err, records) => {
       
       if (err) {
@@ -22,24 +22,19 @@ export default function getPlace({ url }) {
       // Check if any records were found
       if (records.length === 0) {
         
-        reject(new Error('No place found with the given URL'));
+        reject(new Error('No location found with the given URL'));
         return;
       }
       
       // Assuming the URL is unique and only one record will match
       const record = records[0];
-
-      
-
-      const place = {
+    
+      const location = {
         id: record.getId(),
         name: record.get('name'),
-        url: record.get('location_url')+"/"+record.get('url'),
-        longest: record.get('longest'),
-        latitude: record.get('latitude'),
-        longitude: record.get('longitude')
+        url: record.get('location_url')
       };
-      resolve(place);
+      resolve(location);
     });
   });
 }

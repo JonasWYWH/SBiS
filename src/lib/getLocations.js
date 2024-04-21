@@ -10,7 +10,7 @@ export default function getLocations() {
   return new Promise((resolve, reject) => {
     base("locations")
       .select({
-        fields: ["name"],
+        fields: ["name", "location_url"],
         sort: [{ field: "name", direction: "desc" }],
       })
       .eachPage(
@@ -18,12 +18,14 @@ export default function getLocations() {
           records.forEach((record) => {
             const id = record.getId();
             const name = record.get("name");
+            const locationURL = record.get("location_url");
 
             if (!name) return;
 
             totalRecords.push({
               id,
               name,
+              locationURL,
             });
           });
 
