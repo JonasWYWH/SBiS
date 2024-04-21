@@ -5,30 +5,26 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
   "app71VeZADw2YjRBo"
 );
 
-export default function getPlaces() {
+export default function getTypes() {
   const totalRecords = [];
 
   return new Promise((resolve, reject) => {
-    base("places")
+    base("types")
       .select({
-        fields: ["name","longest","url", "location_url"],
+        fields: ["name"],
         sort: [{ field: "name", direction: "desc" }],
       })
       .eachPage(
         function page(records, fetchNextPage) {
           records.forEach((record) => {
             const id = record.getId();
-            const url = record.get('location_url') + "/" + record.get('url');
             const name = record.get("name");
-            const longest = record.get("longest");
 
-            if (!name || !longest) return;
+            if (!name) return;
 
             totalRecords.push({
               id,
-              url,
-              name,
-              longest,
+              name
             });
           });
 

@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Footer from '@components/Footer'
 import React from "react";
 import PropTypes from "prop-types";
-import getPlaces from "src/lib/getPlaces";
+import getPlaces from "@lib/getPlaces";
 
 export default function Places({ places }) {
   return (
